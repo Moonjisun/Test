@@ -1,0 +1,113 @@
+
+package client.gui;
+
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+
+public class UI extends JFrame {
+
+	private UI self = this;
+	// button
+	private JButton[] musicBt = new JButton[4];
+	private JButton[] listBt = new JButton[2];
+	private JButton[] windowBt = new JButton[2];
+	// button option
+	private final int PLAY = 0;
+	private final int PREV = 1;
+	private final int NEXT = 2;
+	private final int STOP = 3;
+
+	private final int RANDOM = 0;
+	private final int REPEAT = 1;
+
+	private final int MINI = 0;
+	private final int EXIT = 1;
+
+	// Frame move
+	private int prevX = 0;
+	private int prevY = 0;
+
+	private void buttonSettings() {
+		// button initialization
+		musicBt[PLAY] = new JButton();
+		musicBt[PREV] = new JButton();
+		musicBt[NEXT] = new JButton();
+		musicBt[STOP] = new JButton();
+
+		listBt[RANDOM] = new JButton();
+		listBt[REPEAT] = new JButton();
+
+		windowBt[MINI] = new JButton();
+		windowBt[EXIT] = new JButton();
+
+		// button position
+		this.musicBt[PREV].setBounds(50, 170, 40, 30);
+		this.musicBt[STOP].setBounds(100, 170, 40, 30);
+		this.musicBt[PLAY].setBounds(150, 170, 40, 30);
+		this.musicBt[NEXT].setBounds(200, 170, 40, 30);
+
+		this.listBt[REPEAT].setBounds(480, 45, 40, 25);
+		this.listBt[RANDOM].setBounds(530, 45, 40, 25);
+
+		this.windowBt[MINI].setBounds(520, 5, 30, 25);
+		this.windowBt[EXIT].setBounds(560, 5, 30, 25);
+	}
+
+	private void compInit() {
+
+		this.setLayout(null);
+
+		for (int i = 0; i < musicBt.length; i++)
+			this.add(musicBt[i]);
+		for (int i = 0; i < listBt.length; i++)
+			this.add(listBt[i]);
+		for (int i = 0; i < windowBt.length; i++)
+			this.add(windowBt[i]);
+
+		this.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				self.setLocation(prevX+e.getX(), prevY + e.getY());
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				prevX = self.getLocation().x - e.getX();
+				prevY = self.getLocation().y - e.getY();
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+	}
+
+	public UI() {
+
+		this.setSize(600, 250);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setResizable(false);
+		this.setUndecorated(true);// 프레임 테두리 삭제
+		this.buttonSettings();
+		this.compInit();
+		this.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		new UI();
+	}
+
+}
